@@ -1,24 +1,21 @@
+'use client';
 import { 
     Card,
     FormControl,
     Heading,
     Input,
     Select,
-    Radio,
     NumberInput,
     HStack,
     VStack,
     FormLabel,
     Switch,
-    RadioGroup,
     FormErrorMessage,
     Button,
     NumberInputField,
  } from "@chakra-ui/react"; 
 import { SearchIcon } from "@chakra-ui/icons";
 import React, { 
-    // useEffect, 
-    // useRef, 
     useState
 } from "react";
 // import { useSearchContext } from "../contexts/searchContext";
@@ -45,14 +42,15 @@ const regions = [
         code: "CN"
     },
 ];
-import env from 'dotenv/config';
+// import env from 'dotenv/config';
 
-const regionOptions = regions.map((region)=> <option value={region.code}>{region.name}</option>);
+const regionOptions = regions.map((region)=> <option key={region.code} value={region.code}>{region.name}</option>);
 const currentYear = new Date();
 const searchMovieURL = 'https://api.themoviedb.org/3/search/movie';
 
 const searchFilms = (params) =>{
-    const authStr = '?api_key=' + env.process.API_KEY;
+    // const authStr = '?api_key=' + env.process.API_KEY;
+    const authStr = '?api_key=' + 'test_value';
     // This part doesn't work currently harcoding in this value. But the page is working and you can successfully select query parameters to correctly call the api.
     const query = !params.strTerm ? '' : '&query=' + params.strTerm;
     const reg = !params.reg ? '' : '&region=' + params.reg;
@@ -63,6 +61,8 @@ const searchFilms = (params) =>{
 
     return fetchURL
 };
+
+
 const SearchBar = () => {
     // component to allow the user to input seach parameters 
     // const {searchResults, setResults} = useSearchContext();
@@ -71,16 +71,10 @@ const SearchBar = () => {
     const [region, setRegion] = useState("");
     const [year, setYear] = useState("");
     const [isAdult, setIsAdult] = useState(false);
-    // console.log(searchFilms({
-    //     adult: isAdult,
-    //     yr: year, 
-    //     reg: region, 
-    //     strTerm: searchTerm
-    // }))
 
-    const handleLog =(e) => {
-        console.log(e)
-    };
+    // const handleLog =(e) => {
+    //     console.log(e)
+    // };
 
     return (
         <VStack
