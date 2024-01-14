@@ -1,3 +1,4 @@
+'use client';
 import { createContext, useContext, useState } from "react";
 
 const SearchContext = createContext([]);
@@ -8,8 +9,8 @@ export const SearchResultsProvider = ({children}) => {
         <SearchContext.Provider
             value={
                 {
-                    ...searchResults,
-                    setResults: (data) => setSearchResults(data)
+                    searchResults,
+                    setSearchResults: (data) => setSearchResults(data)
                 }
             }
         >

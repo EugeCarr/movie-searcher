@@ -18,7 +18,8 @@ import { SearchIcon } from "@chakra-ui/icons";
 import React, { 
     useState
 } from "react";
-// import { useSearchContext } from "../contexts/searchContext";
+import { searchFilms } from "../api/routes";
+import { useSearchContext } from "../contexts/searchContext";
 
 const regions = [
     {
@@ -48,35 +49,28 @@ const regionOptions = regions.map((region)=> <option key={region.code} value={re
 const currentYear = new Date();
 const searchMovieURL = 'https://api.themoviedb.org/3/search/movie';
 
-const searchFilms = (params) =>{
-    // const authStr = '?api_key=' + env.process.API_KEY;
-    const authStr = '?api_key=' + 'test_value';
-    // This part doesn't work currently harcoding in this value. But the page is working and you can successfully select query parameters to correctly call the api.
-    const query = !params.strTerm ? '' : '&query=' + params.strTerm;
-    const reg = !params.reg ? '' : '&region=' + params.reg;
-    const year = !params.yr ? ''  : '&primary_release_year=' + params.yr;
+const searchFilmQuerystring = (params) => {
+    const query = !params.query ? '' : '?query=' + params.query;
+    const reg = !params.region ? '' : '&region=' + params.region;
+    const year = !params.year ? ''  : '&primary_release_year=' + params.year;
     const isAdult = params.adult== null ? '': !params.adult ? '&include_adult=false' : '&include_adult=true';
-
-    const fetchURL = searchMovieURL + authStr + query + reg + year + isAdult;
-
-    return fetchURL
-};
+    const fetchURL = '/api/searchFilms' + query + reg + year + isAdult;
+    return fetchURL;
+}
 
 
 const SearchBar = () => {
     // component to allow the user to input seach parameters 
-    // const {searchResults, setResults} = useSearchContext();
+    const {searchResults, setSearchResults} = useSearchContext();
 
     const [searchTerm, setSearchTerm] = useState("");
     const [region, setRegion] = useState("");
     const [year, setYear] = useState("");
     const [isAdult, setIsAdult] = useState(false);
-
-    // const handleLog =(e) => {
-    //     console.log(e)
-    // };
+    console.log({searchResults});
 
     return (
+
         <VStack
             backgroundColor='#2A4365'
             alignItems='center'
@@ -130,27 +124,30 @@ const SearchBar = () => {
                             <FormErrorMessage>Invalid year input</FormErrorMessage>
                         </FormControl>
                     </HStack>
-                    <HStack                    
-                        justify="start"
-                    >
-                        <Button
+                    <Button
                             isDisabled={!searchTerm} 
                             variant='solid'
-                            colorScheme="Cyan"
+                            // colorScheme="Cyan"
                             rightIcon={<SearchIcon/>}
                             loadingText='Searching'
-                            isLoading
                             spinnerPlacement="end"
-                            onClick={searchFilms({
-                                strTerm: searchTerm,
-                                reg: region,
-                                yr: year,
-                                adult: isAdult
-                            })}
+                            onClick={ async (e)=> {
+                                const data = await searchFilms(
+                                    {
+                                        query: searchTerm,
+                                        region: region,
+                                        year: year,
+                                        adult: isAdult
+                                    }
+                                );
+                                console.log(data);
+                                setSearchResults(data);
+                                
+                                
+                            }}
                         >
                             Search Films
                         </Button>
-                    </HStack>
                 </VStack>
             </Card>
         </VStack>
