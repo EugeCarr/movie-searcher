@@ -1,8 +1,7 @@
 'use client';
 import { 
-    Card,
-    Heading,
-    
+    Text,
+
  } from "@chakra-ui/react"; 
 import { useSearchContext } from "../contexts/searchContext";
 import { MovieResult } from "./movieResult";
@@ -25,16 +24,19 @@ const filmTest = {
 };
 
 export const MovieResultGrid = () => {
-    const {searchResults} = useSearchContext;
-    // const movieListitems = searchResults.map((movie)=> <MovieResult film={movie}/>)
-    // console.log(filmTest);
-    const movieListitems = <Card colorScheme="blackAlpha">
-    <MovieResult film={filmTest}/>
-    </Card>;
-    // if(!searchResults){
-    //     return(<></>)
-    // }else{
-        return( <MovieResult film={filmTest}/>          
+    const {searchResults} = useSearchContext();
+    
+    if(!searchResults){
+        return(
+        <>
+            <Text>No results</Text>
+        </>
         )
-    // }
+    }else{
+        const movieListitems = searchResults.map((movie)=> <MovieResult film={movie} key={movie.id}/>);
+        return( 
+            movieListitems
+              
+        )
+    }
 }; 
