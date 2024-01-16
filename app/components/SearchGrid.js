@@ -67,7 +67,7 @@ const SearchBar = () => {
     const [region, setRegion] = useState("");
     const [year, setYear] = useState("");
     const [isAdult, setIsAdult] = useState(false);
-    console.log({searchResults});
+    // console.log({searchResults});
 
     return (
 
@@ -140,7 +140,7 @@ const SearchBar = () => {
                                         adult: isAdult
                                     }
                                 );
-                                console.log(data);
+                                // console.log(data);
                                 setSearchResults(data);
                                 
                                 
