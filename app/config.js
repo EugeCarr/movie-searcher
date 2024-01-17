@@ -1,5 +1,7 @@
 const SEARCH_MOVIE_URL = 'https://api.themoviedb.org/3/search/movie';
 
+const GET_MOVIE_BY_ID_URL ='https://api.themoviedb.org/3/movie';
+
 const APPEND_TO_RESPONSE = '&append_to_response=images';
 
 const API_KEY = process.env.API_KEY;
@@ -21,5 +23,6 @@ export{
     IMAGE_URL_POSTER_STUB_LARGE,
     IMAGE_URL_POSTER_STUB_GRID_SIZE,
     ACCENT_COLOUR_HEX,
-    POSTER_PHOTO_ASPECT_RATIO
+    POSTER_PHOTO_ASPECT_RATIO,
+    GET_MOVIE_BY_ID_URL
 }
