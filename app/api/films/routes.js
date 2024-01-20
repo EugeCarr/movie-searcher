@@ -1,13 +1,15 @@
-"use server";
+"use server"
 import {API_KEY, APPEND_TO_RESPONSE, GET_MOVIE_BY_ID_URL} from "../../config";
 import { basicFetch } from "../fetchFunction";
 
 
 export const getFilmData = async (params) => {
+    console.log(params);
     if(!params) {
         return {}
     }else{
-        const fetchURL = `${GET_MOVIE_BY_ID_URL}/${params.film_id}?${APPEND_TO_RESPONSE},credits&api_key=${API_KEY}`;
+        const fetchURL = `${GET_MOVIE_BY_ID_URL}/${params.film_id}?append_to_response=images,credits,genres&api_key=${API_KEY}`;
+        // console.log(fetchURL);
         try {
             const response = await fetch(
                 fetchURL,

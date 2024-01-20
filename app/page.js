@@ -3,7 +3,7 @@ import { SearchResultsProvider } from './contexts/searchContext';
 import SearchBar from './components/SearchGrid';
 import { MovieResultGrid } from "./components/movieResultArray";
 
-function App() {
+function Page() {
   return (
     <ChakraProvider>
       <SearchResultsProvider>
@@ -14,4 +14,4 @@ function App() {
   );
 }
 
-export default App;
+export default Page;

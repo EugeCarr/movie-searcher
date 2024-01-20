@@ -3,7 +3,6 @@ import {
     Card,
     Heading,
     Image,
-    HStack,
     VStack,
     Text,
     Box,
@@ -17,26 +16,13 @@ import React, {
 import {BsStarHalf, BsStarFill, BsStar} from "react-icons/bs";
 import { DATE_FORMAT, IMAGE_URL_POSTER_STUB_GRID_SIZE, ACCENT_COLOUR_HEX, POSTER_PHOTO_ASPECT_RATIO} from "../config";
 import { getFilmData } from "../api/films/routes";
+import { StarRatingDisplay } from "./StarRatingDisplay";
+import Link from "next/link";
 
 export const formatReleaseDate = (dateString) => {
     const dateParts = dateString.split("-");
     const myDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
     return myDate.toLocaleDateString('en-GB', DATE_FORMAT)
-};
-
-const getStarRating = (rating) => {
-    const ratingInFive = Number(rating)/ 2;
-    const stars = [];
-    for(let i =0; i < 5; i ++){
-        if(Math.floor(ratingInFive) >= (i + 1)){
-            stars.push(<BsStarFill size="2.5vw" color={ACCENT_COLOUR_HEX} key={i}/>)
-        }else if(Math.ceil(ratingInFive) >= (i + 1)){
-            stars.push(<BsStarHalf size="2.5vw" color={ACCENT_COLOUR_HEX} key={i}/>)
-        }else{
-            stars.push(<BsStar size="2.5vw" color={ACCENT_COLOUR_HEX} key={i}/>)
-        }        
-    }
-    return stars;
 };
 
 const cardWidth = 80;
@@ -85,16 +71,12 @@ export const MovieResult = (props) => {
                             flexDirection="row"
                             flex='1'                        
                         >
-                            <HStack justifyContent="right">
-                                <Text size="2.5vw" color={ACCENT_COLOUR_HEX}>{Math.round((vote_average/2)*10)/10}</Text>
-                                {getStarRating(vote_average)}
-                                
-                            </HStack>
+                            <StarRatingDisplay rating={vote_average}/>
                         </Box>
                     </Flex>
                     <Text  width="100%" color={"black"}>{`Date released: ${formatReleaseDate(release_date)}`}</Text>                
                     <Text  width="100%" color={"grey"}>{overview.slice(0, 400) + '...'}</Text>
-                    <Button 
+                    {/* <Button 
                         variant='solid'
                         loadingText='Searching'
                         spinnerPlacement="end"
@@ -109,7 +91,8 @@ export const MovieResult = (props) => {
                         }}
                     >
                         Get film
-                    </Button>
+                    </Button> */}
+                    <Link href={`viewFilm/${id}`}>See Film</Link>
                 </VStack>
             </Flex>
         </Card>
