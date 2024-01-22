@@ -9,66 +9,126 @@ import {
     Flex,
     Spacer,
     Image,
-    Text
+    Text,
+    Box
  } from "@chakra-ui/react"; 
-import {FaUsers} from "react-icons/bs";
-import { IMAGE_URL_POSTER_STUB_LARGE,POSTER_PHOTO_ASPECT_RATIO, GREY_COLOUR_HEX, VIOLET_COLOUR_HEX } from "../config"; 
+import {FaUsers} from "react-icons/fa";
+import { 
+    IMAGE_URL_POSTER_STUB_LARGE,
+    POSTER_PHOTO_ASPECT_RATIO,
+    GREY_COLOUR_HEX,
+    VIOLET_COLOUR_HEX,
+    ACCENT_COLOUR_HEX,
+    IMDB_MOVIE_SUMMARY_URL
+} from "../config"; 
 import { StarRatingDisplay } from "./StarRatingDisplay";
+import CastCrewcard from "./castCrewcard";
 
 export const MovieSummary = (props) => {
-    console.log(props);
-    const {credits, title, tagline, poster_path, genres} = props.film;
+    // console.log(props);
+    const {credits, title, tagline, poster_path, genres, vote_average, vote_count, imdb_id, budget} = props.film;
     console.log(genres);
 
-    // const {cast, crew} = credits;
-    // const executive_members = crew.filter((member)=> {
-    //     const isDirector = "Directing"===(member["department"]) && "Director"===member["job"];
-    //     const isExecProducer = "Production"===(member["department"]) && "Executive Producer"===member["job"];
-    //     const isScreenPlay = "Writing"===(member["department"]) && "Screenplay"===member["job"];
+    const {cast, crew} = credits;
+    const executive_members = crew.filter((member)=> {
+        const isDirector = "Directing"===(member["department"]) && "Director"===member["job"];
+        const isExecProducer = "Production"===(member["department"]) && "Executive Producer"===member["job"];
+        const isScreenPlay = "Writing"===(member["department"]) && "Screenplay"===member["job"];
         
-    //    return isDirector || isExecProducer || isScreenPlay;
-    // });
+       return isDirector || isExecProducer || isScreenPlay;
+    });
 
-    // const majorCast = cast.slice(0,10);
+    const majorCast = cast.slice(0,5);
 
 
     const moviePhotoWidth = 20;
+    const genreTags = genres.map((genre)=>{
+        return (<Tag size="md" color="purple" key={genre.id}>{genre.name}</Tag>)
+    });
+
+    
+
+    const castComps = [executive_members, majorCast].map((crewset)=> {
+        return (
+            <Card
+                backgroundColor="#111D4A"
+                justifyContent="start"
+            >
+                <Heading>Crew</Heading>
+                <Flex
+                    direction="row"
+                >
+                    {
+                        crewset.map( (crewMember) => {
+                            return (
+                                <CastCrewcard member={crewMember} key={crewMember.id}/>
+                            )
+                            } 
+                        )
+                    }
+                </Flex>
+            </Card>
+        )
+    });
 
     return (
-        <VStack>
-            <Flex
-                flexDirection="row"
-
-            >
-                <Image
-                    alt='movie poster'
-                    src={poster_path? IMAGE_URL_POSTER_STUB_LARGE + poster_path: ''}
-                    objectFit={true}  
-                    width={`${moviePhotoWidth}vw`}
-                    height={`${POSTER_PHOTO_ASPECT_RATIO * moviePhotoWidth}vw`}
-                    padding="2vw"  
-                ></Image>
+        <VStack
+            borderWidth="1px"
+            justify="start"
+        >
+            <Card>
                 <Flex
-                    flexDirection="column"
-                    alignItems="start"
+                    flexDirection="row"
+                    borderWidth="1px"
+                    width="80%"
                 >
-                    <Heading size="lg">{title}</Heading>
+                    <Image
+                        alt='movie poster'
+                        src={poster_path? IMAGE_URL_POSTER_STUB_LARGE + poster_path: ''}
+                        objectFit={true}  
+                        width={`${moviePhotoWidth}vw`}
+                        height={`${POSTER_PHOTO_ASPECT_RATIO * moviePhotoWidth}vw`}
+                        padding="2vw"  
+                    ></Image>
                     <Flex
+                        flexDirection="column"
+                        alignItems="start"
+                        padding="2vw"
                         width="100%"
                     >
-                        <Text size="2vw" color={GREY_COLOUR_HEX}>{tagline}</Text>
-                        <Spacer/>
-                        <VStack>
-                            {
-                                genres?.map((genre)=>{
-                                    <Tag size="md" color={VIOLET_COLOUR_HEX} key={genre.id}>{genre.name}</Tag>
-                                })
-                            }
-                        </VStack>
-                    </Flex>                    
+                        <Heading size="lg">{title}</Heading>
+                        <Flex
+                            width="100%"
+                            borderWidth="2px"
+                        >
+                            <Box>
+                                <Text size="2vw" color={GREY_COLOUR_HEX}>{tagline}</Text>
+                                <StarRatingDisplay rating={vote_average}/>
+                                <HStack>
+                                    {/* <FaUsers color={ACCENT_COLOUR_HEX}/> */}
+                                    <Text size="2vw" color={GREY_COLOUR_HEX}>{`${vote_count} votes`}</Text>                                    
+
+                                </HStack>
+                                <Text size="2vw" color={GREY_COLOUR_HEX}>{`Budget: $${Number(budget).toLocaleString("en-UK")}`}</Text>
+                                <a href={`${IMDB_MOVIE_SUMMARY_URL + imdb_id}/`} target="_blank"><Text>See Movie</Text></a>
+                            </Box>
+                            <Spacer />
+                            <Box>
+                                <Flex
+                                    justifyContent="end"
+                                    direction="column"
+                                >
+                                    {genreTags}
+                                </Flex>
+                            </Box>
+                        </Flex>                    
+                    </Flex>
+                    
                 </Flex>
-                
-            </Flex>
+            </Card>
+            {
+                castComps
+            }
         </VStack>
     )
 
