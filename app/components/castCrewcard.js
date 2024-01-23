@@ -35,22 +35,24 @@ const CastCrewcard = ({member}) => {
     return (
         <Card
             borderRadius="3px"
+            border
             margin="1vw"
             width="15vw"
-            
-        // boxShadow=""
+        
         >
             <VStack
             width="100%">
-            {/* <Heading size="sm">{`${person.role}:`}</Heading> */}
+            <Text color={GREY_COLOUR_HEX} size="3vw">{person?.character? person.character: person.job}</Text>
             <Image
                 src={`${IMAGE_URL_POSTER_STUB_LARGE}${person.profile_path}`}
                 height={`${photowidth * POSTER_PHOTO_ASPECT_RATIO}vw`}
                 width={`${photowidth}vw`}
-                padding="1vw"
+                paddingRight="1vw"
+                paddingLeft="1vw"
+                marginTop="0.5vw"
                 borderRadius="3px"
             />
-            <Text color={GREY_COLOUR_HEX} size="3vw">{person?.character? person.character: person.job}</Text>
+            
             <Text>{person.name}</Text>
             </VStack>
         </Card>

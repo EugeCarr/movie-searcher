@@ -5,12 +5,12 @@ import {
     HStack,
     VStack,
     Tag,
-    Button,
     Flex,
     Spacer,
     Image,
     Text,
-    Box
+    Box,
+    Link
  } from "@chakra-ui/react"; 
 import {FaUsers} from "react-icons/fa";
 import { 
@@ -18,17 +18,22 @@ import {
     POSTER_PHOTO_ASPECT_RATIO,
     GREY_COLOUR_HEX,
     VIOLET_COLOUR_HEX,
-    ACCENT_COLOUR_HEX,
-    IMDB_MOVIE_SUMMARY_URL
+    IMDB_MOVIE_SUMMARY_URL,
+    BORDER_RADIUS,
+    BOX_SHADOW,
+    BLUE_BACKGROUND_COLOUR_HEX,
 } from "../config"; 
 import { StarRatingDisplay } from "./StarRatingDisplay";
 import CastCrewcard from "./castCrewcard";
+import "../styles.css";
 
 export const MovieSummary = (props) => {
     // console.log(props);
-    const {credits, title, tagline, poster_path, genres, vote_average, vote_count, imdb_id, budget} = props.film;
+    const {credits, title, tagline, poster_path, genres, vote_average, vote_count, imdb_id, budget, overview, production_companies} = props.film;
     console.log(genres);
 
+    const centreColumnWidth = 80;
+    const moviePhotoWidth = 20;
     const {cast, crew} = credits;
     const executive_members = crew.filter((member)=> {
         const isDirector = "Directing"===(member["department"]) && "Director"===member["job"];
@@ -39,20 +44,44 @@ export const MovieSummary = (props) => {
     });
 
     const majorCast = cast.slice(0,5);
-
-
-    const moviePhotoWidth = 20;
+    
     const genreTags = genres.map((genre)=>{
-        return (<Tag size="md" color="purple" key={genre.id}>{genre.name}</Tag>)
+        return (<Tag size="lg" color="purple" key={genre.id}>{genre.name}</Tag>)
     });
 
-    
+    const ProdutcionComps = production_companies.map((comp)=>{
+        return (
+            <Flex
+                borderRadius="0px"
+                borderWidth="0px"                
+                alignItems="center"
+                direction="column"
+                marginRight="0.5vw"
+                marginLeft="0.5vw"                
+            >
+                <Image
+                    key={comp.id} 
+                    marginLeft="1vw"
+                    marginRight="1vw"
+                    src={IMAGE_URL_POSTER_STUB_LARGE + comp.logo_path}
+                    width="10vw"
+                    height="8vw"
+                />
+                <Text>{comp.name}</Text>           
+            </Flex>
+        )
+    });
 
-    const castComps = [executive_members, majorCast].map((crewset)=> {
+    const castComps = [executive_members.slice(0,5), majorCast].map((crewset)=> {
         return (
             <Card
-                backgroundColor="#111D4A"
+                // backgroundColor="#111D4A"
                 justifyContent="start"
+                width="100%"
+                marginTop="1vw"
+                marginBottom="1vw"
+                boxShadow={BOX_SHADOW}
+                
             >
                 <Heading>Crew</Heading>
                 <Flex
@@ -72,15 +101,24 @@ export const MovieSummary = (props) => {
     });
 
     return (
-        <VStack
-            borderWidth="1px"
-            justify="start"
+        <Flex
+            direction="column"
+            // borderWidth="1px"
+            backgroundColor={BLUE_BACKGROUND_COLOUR_HEX}
+            align="center"
+            paddingLeft={`${(100 - centreColumnWidth)/2}vw`}
+            paddingRight={`${(100 - centreColumnWidth)/2}vw`}
+            paddingTop="2vw"
         >
-            <Card>
+            <Card
+                borderRadius={BORDER_RADIUS}
+                boxShadow={BOX_SHADOW}
+                width="100%"
+            >
                 <Flex
                     flexDirection="row"
-                    borderWidth="1px"
-                    width="80%"
+                    // borderWidth="1px"
+                    width="100%"                    
                 >
                     <Image
                         alt='movie poster'
@@ -96,13 +134,22 @@ export const MovieSummary = (props) => {
                         padding="2vw"
                         width="100%"
                     >
-                        <Heading size="lg">{title}</Heading>
+                        <a
+                            href={`${IMDB_MOVIE_SUMMARY_URL + imdb_id}/`}
+                            target="_blank"                            
+                        >
+                            <Heading 
+                            size="lg" 
+                            marginBottom="2px"
+                            className="headingLink"
+                            >{title}</Heading>
+                        </a>
                         <Flex
                             width="100%"
-                            borderWidth="2px"
+                            marginTop="1px"
                         >
                             <Box>
-                                <Text size="2vw" color={GREY_COLOUR_HEX}>{tagline}</Text>
+                                <Text size="2vw" color={VIOLET_COLOUR_HEX}>{tagline}</Text>
                                 <StarRatingDisplay rating={vote_average}/>
                                 <HStack>
                                     {/* <FaUsers color={ACCENT_COLOUR_HEX}/> */}
@@ -110,7 +157,6 @@ export const MovieSummary = (props) => {
 
                                 </HStack>
                                 <Text size="2vw" color={GREY_COLOUR_HEX}>{`Budget: $${Number(budget).toLocaleString("en-UK")}`}</Text>
-                                <a href={`${IMDB_MOVIE_SUMMARY_URL + imdb_id}/`} target="_blank"><Text>See Movie</Text></a>
                             </Box>
                             <Spacer />
                             <Box>
@@ -121,15 +167,37 @@ export const MovieSummary = (props) => {
                                     {genreTags}
                                 </Flex>
                             </Box>
+                        </Flex>
+                        <Flex
+                            direction="column"
+                            justifyContent="row"
+                        >
+                            <Heading size="sm">Production Companies</Heading>
+                            <Flex
+                                direction="row"
+                                justifyContent="start"
+                            >
+                                {ProdutcionComps}
+                            </Flex>
                         </Flex>                    
                     </Flex>
                     
                 </Flex>
             </Card>
+            <Card
+                borderRadius={BORDER_RADIUS}
+                padding="2vw"
+                boxShadow={BOX_SHADOW}
+                marginTop="1vw"
+                marginBottom="1vw"
+            >
+                <Heading size="lg">Summary</Heading>
+                <Text>{overview}</Text>
+            </Card>
             {
                 castComps
             }
-        </VStack>
+        </Flex>
     )
 
 }

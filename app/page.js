@@ -2,13 +2,22 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { SearchResultsProvider } from './contexts/searchContext';
 import SearchBar from './components/SearchGrid';
 import { MovieResultGrid } from "./components/movieResultArray";
+import { Flex } from "@chakra-ui/react";
+import { BLUE_BACKGROUND_COLOUR_HEX } from "./config";
 
 function Page() {
   return (
     <ChakraProvider>
       <SearchResultsProvider>
-        <SearchBar />
-        <MovieResultGrid/> 
+        <Flex
+          direction="column"
+          width="100%"
+          backgroundColor={BLUE_BACKGROUND_COLOUR_HEX}
+          alignItems="center"
+        >
+          <SearchBar />
+          <MovieResultGrid/> 
+        </Flex>
       </SearchResultsProvider>
     </ChakraProvider>
   );

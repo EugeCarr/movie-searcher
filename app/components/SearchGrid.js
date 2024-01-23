@@ -20,6 +20,7 @@ import React, {
 } from "react";
 import { searchFilms } from "../api/routes";
 import { useSearchContext } from "../contexts/searchContext";
+import { BORDER_RADIUS, BOX_SHADOW, SEARCHBAR_GREY_COLOUR_HEX } from "../config";
 
 const regions = [
     {
@@ -69,14 +70,13 @@ const SearchBar = () => {
     const [isAdult, setIsAdult] = useState(false);
     // console.log(searchResults);
     return (
-
-        <VStack
-            backgroundColor='#2A4365'
-            alignItems='center'
-            justifyContent='center'
-        >
-            <Card>
-                <Heading>Search for Movies</Heading>
+        <Card
+                backgroundColor="gray"
+                width="80vw"
+                borderRadius={BORDER_RADIUS}
+                boxShadow={BOX_SHADOW}
+            >
+                <Heading size="md">Search for Movies</Heading>
                 <VStack>
                     <HStack
                         justify="start"
@@ -149,7 +149,6 @@ const SearchBar = () => {
                     </Button>
                 </VStack>
             </Card>
-        </VStack>
         
     )
 

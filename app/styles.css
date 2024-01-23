@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+    /* --primary-colour: #EEF2A6; */
+    --link-hover-color: #60E1E0;
+    --primary-colour: #F8FADC;
+    --accent-colour: #24847C;
+    --secondary-colour: #B8D6B1;
+    --tertiary-colour: #dfffda;
+    --dark-colour: #483C46;
+    --default-small-text-size: 1vw;
+    --default-medium-text-size: 3vw;
+
+}
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.headingLink:hover {
+    color: var(--link-hover-color);
+}
+
+.movieResult:hover {
+    border-width: "1vw";
+    border-color: var(--link-hover-color);
+    border-style: double;
+}
