@@ -13,6 +13,7 @@ import {FaUsers} from "react-icons/fa";
 import { IMAGE_URL_POSTER_STUB_LARGE,POSTER_PHOTO_ASPECT_RATIO, GREY_COLOUR_HEX, VIOLET_COLOUR_HEX, ACCENT_COLOUR_HEX } from "../config"; 
 import Head from "next/head";
 
+
  const testMember = {
     adult: false,
     gender: 1,
@@ -29,7 +30,7 @@ import Head from "next/head";
 };
 
 const photowidth= 15;
-const CastCrewcard = ({member}) => {    
+const CastCrewcard = ({member, key}) => {    
     const person = member;
 
     return (
@@ -38,22 +39,22 @@ const CastCrewcard = ({member}) => {
             border
             margin="1vw"
             width="15vw"
-        
+            key={key}
         >
             <VStack
-            width="100%">
-            <Text color={GREY_COLOUR_HEX} size="3vw">{person?.character? person.character: person.job}</Text>
+            width="100%">            
             <Image
                 src={`${IMAGE_URL_POSTER_STUB_LARGE}${person.profile_path}`}
                 height={`${photowidth * POSTER_PHOTO_ASPECT_RATIO}vw`}
                 width={`${photowidth}vw`}
-                paddingRight="1vw"
-                paddingLeft="1vw"
-                marginTop="0.5vw"
+                paddingRight={`${1}vw`}
+                paddingLeft={`${1}vw`}
+                marginTop={`${0.5}vw`}
                 borderRadius="3px"
-            />
-            
+                key={`${key}-image`}
+            />            
             <Text>{person.name}</Text>
+            <Text color={GREY_COLOUR_HEX} size="3vw">{person?.character? person.character: person.job}</Text>
             </VStack>
         </Card>
     )

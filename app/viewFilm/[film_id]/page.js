@@ -1,4 +1,3 @@
-'use client'
 import MovieSummaryContainer from "../../components/movieSummaryContainer";
 import { ChakraProvider } from "@chakra-ui/react";
 import {Suspense, lazy} from "react";
@@ -13,9 +12,7 @@ const Page = async ({params}) => {
     const filmData = await getFilmData({film_id: film_id});
     return (
       <ChakraProvider>
-        <Suspense fallback={<p>Loading movie...</p>}>
-          <MovieSummary film={filmData}/>
-        </Suspense>
+        <MovieSummary film={filmData}/>
       </ChakraProvider>
     );
 };

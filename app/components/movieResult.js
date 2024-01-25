@@ -2,18 +2,18 @@
 import { 
     Card,
     Heading,
-    Image,
     VStack,
     Text,
     Box,
     Flex,
+    Image,
     Spacer,
     Button
  } from "@chakra-ui/react"; 
 import React, { 
     useState
 } from "react";
-import {BsStarHalf, BsStarFill, BsStar} from "react-icons/bs";
+import SafeImage from "./safeImage";
 import { 
     DATE_FORMAT, 
     IMAGE_URL_POSTER_STUB_GRID_SIZE,
@@ -25,6 +25,8 @@ import { getFilmData } from "../api/films/routes";
 import { StarRatingDisplay } from "./StarRatingDisplay";
 import Link from "next/link";
 import "../styles.css";
+import { convertVwToPx } from "../commonFunctions";
+
 
 export const formatReleaseDate = (dateString) => {
     const dateParts = dateString.split("-");
@@ -68,7 +70,7 @@ export const MovieResult = (props) => {
                         alt='movie poster'
                         src={poster_path? IMAGE_URL_POSTER_STUB_GRID_SIZE + poster_path: ''}
                         objectFit={true}  
-                        width={`${posterPhotoWidth}vw`}
+                        width={`${ posterPhotoWidth}vw`}
                         height={`${POSTER_PHOTO_ASPECT_RATIO * posterPhotoWidth}vw`}        
                         />
                         <VStack

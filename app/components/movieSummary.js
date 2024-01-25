@@ -5,14 +5,15 @@ import {
     HStack,
     VStack,
     Tag,
+    Image,
     Flex,
     Spacer,
-    Image,
     Text,
     Box,
     Link
  } from "@chakra-ui/react"; 
 import {FaUsers} from "react-icons/fa";
+import SafeImage from "./safeImage";
 import { 
     IMAGE_URL_POSTER_STUB_LARGE,
     POSTER_PHOTO_ASPECT_RATIO,
@@ -30,7 +31,6 @@ import "../styles.css";
 export const MovieSummary = (props) => {
     // console.log(props);
     const {credits, title, tagline, poster_path, genres, vote_average, vote_count, imdb_id, budget, overview, production_companies} = props.film;
-    console.log(genres);
 
     const centreColumnWidth = 80;
     const moviePhotoWidth = 20;
@@ -48,7 +48,8 @@ export const MovieSummary = (props) => {
     const genreTags = genres.map((genre)=>{
         return (<Tag size="lg" color="purple" key={genre.id}>{genre.name}</Tag>)
     });
-
+    // console.log(production_companies);
+    // console.log(executive_members);
     const ProdutcionComps = production_companies.map((comp)=>{
         return (
             <Flex
@@ -57,22 +58,31 @@ export const MovieSummary = (props) => {
                 alignItems="center"
                 direction="column"
                 marginRight="0.5vw"
-                marginLeft="0.5vw"                
+                marginLeft="0.5vw"
+                key={`flex-${comp.id}`}                
             >
                 <Image
                     key={comp.id} 
                     marginLeft="1vw"
                     marginRight="1vw"
-                    src={IMAGE_URL_POSTER_STUB_LARGE + comp.logo_path}
+                    src={comp.logo_path? IMAGE_URL_POSTER_STUB_LARGE + comp.logo_path: '/No-Image-Placeholder.svg'}
                     width="10vw"
-                    height="8vw"
+                    height="10vw"
                 />
-                <Text>{comp.name}</Text>           
+                <Text key={`name-${comp.id}`}>{comp.name}</Text>           
             </Flex>
         )
     });
 
-    const castComps = [executive_members.slice(0,5), majorCast].map((crewset)=> {
+    const castComps = [
+        {
+            type: "Crew",
+            members: executive_members.slice(0,5)
+        },
+        {
+            type: "Main Cast",
+            members: majorCast
+        } ].map((crewset)=> {
         return (
             <Card
                 // backgroundColor="#111D4A"
@@ -83,12 +93,12 @@ export const MovieSummary = (props) => {
                 boxShadow={BOX_SHADOW}
                 
             >
-                <Heading>Crew</Heading>
+                <Heading>{crewset.type}</Heading>
                 <Flex
                     direction="row"
                 >
                     {
-                        crewset.map( (crewMember) => {
+                        crewset.members.map( (crewMember) => {
                             return (
                                 <CastCrewcard member={crewMember} key={crewMember.id}/>
                             )
@@ -122,12 +132,12 @@ export const MovieSummary = (props) => {
                 >
                     <Image
                         alt='movie poster'
-                        src={poster_path? IMAGE_URL_POSTER_STUB_LARGE + poster_path: ''}
+                        src={poster_path? IMAGE_URL_POSTER_STUB_LARGE + poster_path: '../images/No-Image-Placeholder.svg'}
                         objectFit={true}  
                         width={`${moviePhotoWidth}vw`}
                         height={`${POSTER_PHOTO_ASPECT_RATIO * moviePhotoWidth}vw`}
                         padding="2vw"  
-                    ></Image>
+                    />
                     <Flex
                         flexDirection="column"
                         alignItems="start"

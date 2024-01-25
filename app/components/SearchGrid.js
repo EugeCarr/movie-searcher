@@ -13,6 +13,7 @@ import {
     FormErrorMessage,
     Button,
     NumberInputField,
+    Flex,
  } from "@chakra-ui/react"; 
 import { SearchIcon } from "@chakra-ui/icons";
 import React, { 
@@ -70,11 +71,12 @@ const SearchBar = () => {
     const [isAdult, setIsAdult] = useState(false);
     // console.log(searchResults);
     return (
-        <Card
-                backgroundColor="gray"
-                width="80vw"
+        <Flex
+                backgroundColor={SEARCHBAR_GREY_COLOUR_HEX}
+                width="100%"
                 borderRadius={BORDER_RADIUS}
                 boxShadow={BOX_SHADOW}
+                direction="column"
             >
                 <Heading size="md">Search for Movies</Heading>
                 <VStack>
@@ -148,7 +150,7 @@ const SearchBar = () => {
                         Search Films
                     </Button>
                 </VStack>
-            </Card>
+        </Flex>
         
     )
 
