@@ -14,6 +14,7 @@ function Page() {
           width="100%"
           backgroundColor={BLUE_BACKGROUND_COLOUR_HEX}
           alignItems="center"
+          height="100%"
         >
           <SearchBar />
           <MovieResultGrid/> 

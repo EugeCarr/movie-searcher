@@ -13,7 +13,7 @@ import {
     Link
  } from "@chakra-ui/react"; 
 import {FaUsers} from "react-icons/fa";
-import SafeImage from "./safeImage";
+
 import { 
     IMAGE_URL_POSTER_STUB_LARGE,
     POSTER_PHOTO_ASPECT_RATIO,
@@ -50,7 +50,7 @@ export const MovieSummary = (props) => {
     });
     // console.log(production_companies);
     // console.log(executive_members);
-    const ProdutcionComps = production_companies.map((comp)=>{
+    const ProdutcionComps = production_companies.slice(0,4).map((comp)=>{
         return (
             <Flex
                 borderRadius="0px"
@@ -117,7 +117,7 @@ export const MovieSummary = (props) => {
             backgroundColor={BLUE_BACKGROUND_COLOUR_HEX}
             align="center"
             paddingLeft={`${(100 - centreColumnWidth)/2}vw`}
-            paddingRight={`${(100 - centreColumnWidth)/2}vw`}
+            paddingRight={`${(100 - centreColumnWidth)/2}vw`}            
             paddingTop="2vw"
         >
             <Card
@@ -142,7 +142,7 @@ export const MovieSummary = (props) => {
                         flexDirection="column"
                         alignItems="start"
                         padding="2vw"
-                        width="100%"
+                        width={`${centreColumnWidth - moviePhotoWidth}vw`}
                     >
                         <a
                             href={`${IMDB_MOVIE_SUMMARY_URL + imdb_id}/`}
@@ -186,6 +186,7 @@ export const MovieSummary = (props) => {
                             <Flex
                                 direction="row"
                                 justifyContent="start"
+                                width={`${centreColumnWidth - moviePhotoWidth}vw`}
                             >
                                 {ProdutcionComps}
                             </Flex>
@@ -200,6 +201,7 @@ export const MovieSummary = (props) => {
                 boxShadow={BOX_SHADOW}
                 marginTop="1vw"
                 marginBottom="1vw"
+                width="100%"
             >
                 <Heading size="lg">Summary</Heading>
                 <Text>{overview}</Text>

@@ -1,7 +1,7 @@
 body {
     margin: 0;
     /* --primary-colour: #EEF2A6; */
-    --link-hover-color: #60E1E0;
+    --link-hover-color: #2849C3;
     --primary-colour: #F8FADC;
     --accent-colour: #24847C;
     --secondary-colour: #B8D6B1;
@@ -21,7 +21,7 @@ body {
 }
 
 .movieResult:hover {
-    border-width: "1vw";
+    border-width: "2.5vw";
     border-color: var(--link-hover-color);
-    border-style: double;
+    border-style: solid;
 }

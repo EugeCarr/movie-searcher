@@ -13,7 +13,7 @@ import {
 import React, { 
     useState
 } from "react";
-import SafeImage from "./safeImage";
+
 import { 
     DATE_FORMAT, 
     IMAGE_URL_POSTER_STUB_GRID_SIZE,

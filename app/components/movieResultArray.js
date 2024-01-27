@@ -1,42 +1,56 @@
 'use client';
 import { 
     Text,
-
+    Flex,
+    Grid,
+    Card,
+    GridItem,
+    Select,
+    FormLabel
  } from "@chakra-ui/react"; 
 import { useSearchContext } from "../contexts/searchContext";
 import { MovieResult } from "./movieResult";
-
-const filmTest = {
-    adult: false,
-    backdrop_path: "/1FLId9BrCihR6vsJKVoiyRfnnh9.jpg",
-    genre_ids: [],
-    id: 65843,
-    original_language: "en",
-    original_title: "Journey - The Escape Tour",
-    overview: "The Escape Tour was a concert tour by the American rock band Journey. It was one of Journey's most successful concert tours, in support of their first number one album, Escape. The tour included six consecutive sold out dates at the Pine Knob Theatre in Detroit, and four straight sold out shows at the Los Angeles Forum, and Chicago's Rosemont Horizon. Journey also made an appearance on July 2, 1982 at the Rose Bowl in Pasadena, California with Blue Öyster Cult, Triumph and Aldo Nova. The eight and a half month tour took Journey through Japan and North America. Point Blank, Billy Squier, Greg Kihn Band and Loverboy were the opening acts during the tour.",
-    popularity: 1.4,
-    poster_path: "/of6RdcGgHV9i8opoafNAxCuEWLa.jpg",
-    release_date: "2005-11-01",
-    title: "Journey - The Escape Tour",
-    video: false,
-    vote_average: 7.5,
-    vote_count: 1
-};
+import { useState } from "react";
+import { BLUE_BACKGROUND_COLOUR_HEX, BORDER_RADIUS, BOX_SHADOW } from "../config";
 
 export const MovieResultGrid = () => {
     const {searchResults} = useSearchContext();
+
     
-    if(!searchResults){
+    if(!searchResults[0]){
         return(
-        <>
-            <Text>No results</Text>
-        </>
+        <Flex
+            height="200vw"
+            direction="column"
+            width="100vw"
+            backgroundColor={BLUE_BACKGROUND_COLOUR_HEX}
+            alignItems="center"
+            paddingTop="0.5vw"
+        >
+            <Card
+                width="94%"
+                boxShadow={BOX_SHADOW}
+                borderRadius={BORDER_RADIUS}
+                color="white"
+                paddingLeft="2vw"
+            >
+                <Text
+                    color="grey"
+                >
+                    No results. Use Search bar to find movies.
+                </Text>
+            </Card>
+        </Flex>
         )
     }else{
         const movieListitems = searchResults.map((movie)=> <MovieResult film={movie} key={movie.id}/>);
-        return( 
-            movieListitems
-              
+        return(
+            <Flex
+                direction="column"
+                alignItems="center"
+            >
+                {movieListitems}
+            </Flex>              
         )
     }
 }; 
