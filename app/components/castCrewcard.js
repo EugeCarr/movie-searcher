@@ -37,24 +37,24 @@ const CastCrewcard = ({member, key}) => {
         <Card
             borderRadius="3px"
             border
-            margin="1vw"
-            width="15vw"
+            margin="1rem"
+            width="15rem"
             key={key}
         >
             <VStack
             width="100%">            
             <Image
                 src={`${IMAGE_URL_POSTER_STUB_LARGE}${person.profile_path}`}
-                height={`${photowidth * POSTER_PHOTO_ASPECT_RATIO}vw`}
-                width={`${photowidth}vw`}
-                paddingRight={`${1}vw`}
-                paddingLeft={`${1}vw`}
-                marginTop={`${0.5}vw`}
+                height={`${photowidth * POSTER_PHOTO_ASPECT_RATIO}rem`}
+                width={`${photowidth}rem`}
+                paddingRight={`${1}rem`}
+                paddingLeft={`${1}rem`}
+                marginTop={`${0.5}rem`}
                 borderRadius="3px"
                 key={`${key}-image`}
             />            
             <Text>{person.name}</Text>
-            <Text color={GREY_COLOUR_HEX} size="3vw">{person?.character? person.character: person.job}</Text>
+            <Text color={GREY_COLOUR_HEX} size="3rem">{person?.character? person.character: person.job}</Text>
             </VStack>
         </Card>
     )
