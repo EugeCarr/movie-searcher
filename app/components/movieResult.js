@@ -35,7 +35,7 @@ export const formatReleaseDate = (dateString) => {
 };
 
 const cardWidth = 80;
-const posterPhotoWidth = 12;
+const posterPhotoWidth = 8;
 
 export const MovieResult = (props) => {
     const {title, overview, release_date, vote_average, poster_path, id} = props.film;

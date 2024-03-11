@@ -32,7 +32,7 @@ export const MovieSummary = (props) => {
     // console.log(props);
     const {credits, title, tagline, poster_path, genres, vote_average, vote_count, imdb_id, budget, overview, production_companies} = props.film;
 
-    const centreColumnWidth = 80;
+    const centreColumnWidth = 85;
     const moviePhotoWidth = 20;
     const {cast, crew} = credits;
     const executive_members = crew.filter((member)=> {
@@ -50,24 +50,24 @@ export const MovieSummary = (props) => {
     });
     // console.log(production_companies);
     // console.log(executive_members);
-    const ProdutcionComps = production_companies.slice(0,4).map((comp)=>{
+    const ProdutcionComps = production_companies.slice(0,6).map((comp)=>{
         return (
             <Flex
                 borderRadius="0px"
                 borderWidth="0px"                
                 alignItems="center"
                 direction="column"
-                marginRight="0.5vw"
-                marginLeft="0.5vw"
+                marginRight="0.5rem"
+                marginLeft="0.5rem"
                 key={`flex-${comp.id}`}                
             >
                 <Image
                     key={comp.id} 
-                    marginLeft="1vw"
-                    marginRight="1vw"
+                    marginLeft="1rem"
+                    marginRight="1rem"
+                    marginTop="0.5rem"
                     src={comp.logo_path? IMAGE_URL_POSTER_STUB_LARGE + comp.logo_path: '/No-Image-Placeholder.svg'}
                     width="10vw"
-                    // height="10vw"
                 />
                 <Text key={`name-${comp.id}`}>{comp.name}</Text>           
             </Flex>
@@ -76,26 +76,28 @@ export const MovieSummary = (props) => {
 
     const castComps = [
         {
+            type: "Main Cast",
+            members: majorCast
+        },
+        {
             type: "Crew",
             members: executive_members.slice(0,5)
         },
-        {
-            type: "Main Cast",
-            members: majorCast
-        } ].map((crewset)=> {
+         ].map((crewset)=> {
         return (
             <Card
                 // backgroundColor="#111D4A"
                 justifyContent="start"
                 width="100%"
-                marginTop="1vw"
-                marginBottom="1vw"
+                marginTop="1rem"
+                marginBottom="1rem"
                 boxShadow={BOX_SHADOW}
                 
             >
                 <Heading>{crewset.type}</Heading>
                 <Flex
                     direction="row"
+                    justifyContent="center"
                 >
                     {
                         crewset.members.map( (crewMember) => {
@@ -116,9 +118,9 @@ export const MovieSummary = (props) => {
             // borderWidth="1px"
             backgroundColor={BLUE_BACKGROUND_COLOUR_HEX}
             align="center"
-            paddingLeft={`${(100 - centreColumnWidth)/2}vw`}
-            paddingRight={`${(100 - centreColumnWidth)/2}vw`}            
-            paddingTop="2vw"
+            paddingLeft={`${(100 - centreColumnWidth)/2}rem`}
+            paddingRight={`${(100 - centreColumnWidth)/2}rem`}            
+            paddingTop="2rem"
         >
             <Card
                 borderRadius={BORDER_RADIUS}
@@ -134,15 +136,15 @@ export const MovieSummary = (props) => {
                         alt='movie poster'
                         src={poster_path? IMAGE_URL_POSTER_STUB_LARGE + poster_path: '../images/No-Image-Placeholder.svg'}
                         objectFit={true}  
-                        width={`${moviePhotoWidth}vw`}
-                        height={`${POSTER_PHOTO_ASPECT_RATIO * moviePhotoWidth}vw`}
-                        padding="2vw"  
+                        width={`${moviePhotoWidth}rem`}
+                        height={`${POSTER_PHOTO_ASPECT_RATIO * moviePhotoWidth}rem`}
+                        padding="2rem"  
                     />
                     <Flex
                         flexDirection="column"
                         alignItems="start"
-                        padding="2vw"
-                        width={`${centreColumnWidth - moviePhotoWidth}vw`}
+                        padding="2rem"
+                        width={`${centreColumnWidth - moviePhotoWidth - 10}rem`}
                     >
                         <a
                             href={`${IMDB_MOVIE_SUMMARY_URL + imdb_id}/`}
@@ -157,16 +159,17 @@ export const MovieSummary = (props) => {
                         <Flex
                             width="100%"
                             marginTop="1px"
+                            
                         >
                             <Box>
-                                <Text size="2vw" color={VIOLET_COLOUR_HEX}>{tagline}</Text>
+                                <Text size="2rem" color={VIOLET_COLOUR_HEX}>{tagline}</Text>
                                 <StarRatingDisplay rating={vote_average}/>
                                 <HStack>
                                     {/* <FaUsers color={ACCENT_COLOUR_HEX}/> */}
-                                    <Text size="2vw" color={GREY_COLOUR_HEX}>{`${vote_count} votes`}</Text>                                    
+                                    <Text size="2rem" color={GREY_COLOUR_HEX}>{`${vote_count} votes`}</Text>                                    
 
                                 </HStack>
-                                <Text size="2vw" color={GREY_COLOUR_HEX}>{`Budget: $${Number(budget).toLocaleString("en-UK")}`}</Text>
+                                <Text size="2rem" color={GREY_COLOUR_HEX}>{`Budget: $${Number(budget).toLocaleString("en-UK")}`}</Text>
                             </Box>
                             <Spacer />
                             <Box>
@@ -182,7 +185,7 @@ export const MovieSummary = (props) => {
                             direction="column"
                             justifyContent="row"
                         >
-                            <Heading size="sm">Production Companies</Heading>
+                            <Heading size="md" maginTop="0.5rem">Production Companies</Heading>
                             <Flex
                                 direction="row"
                                 justifyContent="start"
@@ -198,10 +201,10 @@ export const MovieSummary = (props) => {
             </Card>
             <Card
                 borderRadius={BORDER_RADIUS}
-                padding="2vw"
+                padding="2rem"
                 boxShadow={BOX_SHADOW}
-                marginTop="1vw"
-                marginBottom="1vw"
+                marginTop="1rem"
+                marginBottom="1rem"
                 width="100%"
             >
                 <Heading size="lg">Summary</Heading>
