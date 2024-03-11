@@ -50,7 +50,7 @@ export const MovieSummary = (props) => {
     });
     // console.log(production_companies);
     // console.log(executive_members);
-    const ProdutcionComps = production_companies.slice(0,6).map((comp)=>{
+    const ProdutcionComps = production_companies.slice(0,4).map((comp)=>{
         return (
             <Flex
                 borderRadius="0px"
