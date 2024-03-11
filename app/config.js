@@ -13,7 +13,7 @@ const DATE_FORMAT = {year: 'numeric', month: 'short', day: 'numeric'};
 const IMAGE_URL_POSTER_STUB_SMALL = 'https://image.tmdb.org/t/p/w92';
 const IMAGE_URL_POSTER_STUB_LARGE = 'https://image.tmdb.org/t/p/w342';
 const IMAGE_URL_POSTER_STUB_GRID_SIZE = 'https://image.tmdb.org/t/p/w154';
-const POSTER_PHOTO_ASPECT_RATIO = 9/6;
+const POSTER_PHOTO_ASPECT_RATIO = 9/7;
 
 const ACCENT_COLOUR_HEX= "#FF6542";
 
